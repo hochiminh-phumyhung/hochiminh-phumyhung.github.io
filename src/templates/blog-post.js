@@ -32,7 +32,7 @@ export default function BlogPost({ data }) {
         <div style={{ marginBottom: "30px" }}>
           <a href="https://vinatong.store" target="_blank" rel="noreferrer" style={{ display: "block" }}>
             <img
-              src="https://cdn.sanity.io/images/8xyje6wz/production/fc266096da8a9463c123e111d93328021734f289-1980x956.jpg?h=300&fit=max&q=80"
+              src="https://cdn.sanity.io/images/8xyje6wz/production/d1730ee604282afcce900adf5da8cc733581d4e0-1200x300.jpg?h=300&fit=max&q=80"
               alt="비나통 공식홈페이지"
               style={{
                 width: "100%",
