@@ -1,6 +1,31 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type MarkdownRemark implements Node {
+      frontmatter: MarkdownRemarkFrontmatter
+    }
+    type MarkdownRemarkFrontmatter {
+      title: String
+      date: Date @dateformat
+      description: String
+      thumbnail: File @fileByRelativePath
+    }
+    type Mdx implements Node {
+      frontmatter: MdxFrontmatter
+    }
+    type MdxFrontmatter {
+      title: String
+      date: Date @dateformat
+      description: String
+      thumbnail: File @fileByRelativePath
+    }
+  `
+  createTypes(typeDefs)
+}
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   // 마크다운과 MDX 노드 모두에 slug 필드를 동적으로 부여합니다.

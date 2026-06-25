@@ -1,5 +1,7 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import Layout from "../components/layout"
 
 const IndexPage = ({ data }) => {
   // 마크다운 포스트와 MDX 포스트 목록을 합쳐서 정렬합니다.
@@ -12,57 +14,114 @@ const IndexPage = ({ data }) => {
   })
 
   return (
-    <main style={{
-      maxWidth: "800px",
-      margin: "0 auto",
-      padding: "60px 20px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-      color: "#1f2937"
-    }}>
-      <header style={{ marginBottom: "50px" }}>
-        <h1 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#111827", margin: "0 0 10px 0" }}>
-          My Vinatong Blog 📝
-        </h1>
-        <p style={{ color: "#6b7280", fontSize: "16px", margin: 0 }}>
-          Gatsby와 React로 제작된 웹사이트입니다. 작성된 글 목록을 만나보세요.
-        </p>
-      </header>
+    <Layout>
+      <main style={{
+        maxWidth: "800px",
+        margin: "0 auto",
+        padding: "40px 20px",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: "#1f2937"
+      }}>
+        <header style={{ marginBottom: "50px" }}>
+          <h1 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#111827", margin: "0 0 10px 0" }}>
+            My Vinatong Blog 📝
+          </h1>
+          <p style={{ color: "#6b7280", fontSize: "16px", margin: 0 }}>
+            Gatsby와 React로 제작된 웹사이트입니다. 작성된 글 목록을 만나보세요.
+          </p>
+        </header>
 
-      <section>
-        {posts.length === 0 ? (
-          <p style={{ color: "#9ca3af", fontStyle: "italic" }}>아직 작성된 포스트가 없습니다.</p>
-        ) : (
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {posts.map(post => (
-              <li key={post.id} style={{ 
-                marginBottom: "30px", 
-                paddingBottom: "25px", 
-                borderBottom: "1px solid #f3f4f6" 
-              }}>
-                <span style={{ fontSize: "14px", color: "#9ca3af" }}>{post.frontmatter.date}</span>
-                <h2 style={{ margin: "5px 0 10px 0", fontSize: "1.4rem" }}>
-                  <Link to={post.fields.slug} style={{ 
-                    color: "#2563eb", 
-                    textDecoration: "none",
-                    fontWeight: "700"
-                  }}>
-                    {post.frontmatter.title}
-                  </Link>
-                </h2>
-                <p style={{ 
-                  color: "#4b5563", 
-                  fontSize: "15px", 
-                  margin: 0,
-                  lineHeight: "1.6"
-                }}>
-                  {post.frontmatter.description || "상세 보기 클릭..."}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-    </main>
+        <section>
+          {posts.length === 0 ? (
+            <p style={{ color: "#9ca3af", fontStyle: "italic" }}>아직 작성된 포스트가 없습니다.</p>
+          ) : (
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {posts.map(post => {
+                const thumbnailImage = getImage(post.frontmatter.thumbnail)
+
+                return (
+                  <li key={post.id} style={{ 
+                    marginBottom: "35px", 
+                    paddingBottom: "30px", 
+                    borderBottom: "1px solid #f3f4f6",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "20px",
+                    alignItems: "flex-start"
+                  }} className="post-item">
+                    {/* 썸네일 노출 영역 */}
+                    <div style={{
+                      width: "150px",
+                      height: "100px",
+                      flexShrink: 0,
+                      backgroundColor: "#f3f4f6",
+                      borderRadius: "8px",
+                      overflow: "hidden",
+                      border: "1px solid #e5e7eb"
+                    }} className="post-thumbnail-wrapper">
+                      {thumbnailImage ? (
+                        <GatsbyImage 
+                          image={thumbnailImage} 
+                          alt={post.frontmatter.title} 
+                          style={{ width: "100%", height: "100%" }}
+                        />
+                      ) : (
+                        <div style={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#9ca3af",
+                          fontSize: "13px",
+                          fontWeight: "500"
+                        }}>
+                          No Image
+                        </div>
+                      )}
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <span style={{ fontSize: "13px", color: "#9ca3af" }}>{post.frontmatter.date}</span>
+                      <h2 style={{ margin: "5px 0 10px 0", fontSize: "1.3rem" }}>
+                        <Link to={post.fields.slug} style={{ 
+                          color: "#2563eb", 
+                          textDecoration: "none",
+                          fontWeight: "700"
+                        }}>
+                          {post.frontmatter.title}
+                        </Link>
+                      </h2>
+                      <p style={{ 
+                        color: "#4b5563", 
+                        fontSize: "14.5px", 
+                        margin: 0,
+                        lineHeight: "1.6"
+                      }}>
+                        {post.frontmatter.description || "상세 보기 클릭..."}
+                      </p>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </section>
+      </main>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .post-item {
+            flex-direction: column !important;
+            gap: 15px !important;
+          }
+          .post-thumbnail-wrapper {
+            width: 100% !important;
+            height: 180px !important;
+          }
+        }
+      `}</style>
+    </Layout>
   )
 }
 
@@ -79,6 +138,11 @@ export const query = graphql`
           date(formatString: "YYYY년 MM월 DD일")
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
+          thumbnail {
+            childImageSharp {
+              gatsbyImageData(width: 300, height: 200, layout: CONSTRAINED, placeholder: BLURRED)
+            }
+          }
         }
       }
     }
@@ -93,6 +157,11 @@ export const query = graphql`
           date(formatString: "YYYY년 MM월 DD일")
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
+          thumbnail {
+            childImageSharp {
+              gatsbyImageData(width: 300, height: 200, layout: CONSTRAINED, placeholder: BLURRED)
+            }
+          }
         }
       }
     }
