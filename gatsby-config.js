@@ -12,7 +12,7 @@ module.exports = {
       options: {
         // TODO: 실제 Google Analytics 트래킹 ID가 있다면 아래에 입력해주세요. (예: "G-XXXXXXXXXX")
         trackingIds: [
-          "G-TRACKING_ID",
+          "G-9L7YDDS674",
         ],
       },
     },
