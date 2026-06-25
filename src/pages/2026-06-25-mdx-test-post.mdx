@@ -1,0 +1,51 @@
+---
+layout: post
+title: "개츠비 MDX 적용 테스트 포스트"
+date: 2026-06-25 10:17:00 +0900
+description: "리액트 컴포넌트를 직접 활용할 수 있는 개츠비 MDX 포스트입니다."
+---
+
+export const Highlight = ({ children, color = '#ffd33d' }) => (
+  <span style={{
+    backgroundColor: color,
+    borderRadius: '4px',
+    padding: '2px 6px',
+    fontWeight: 'bold',
+    color: '#000'
+  }}>
+    {children}
+  </span>
+)
+
+export const AlertBox = ({ children, type = 'info' }) => {
+  const styles = {
+    info: { bg: '#e0f2fe', border: '#0284c7', color: '#0369a1' },
+    success: { bg: '#dcfce7', border: '#16a34a', color: '#15803d' }
+  }
+  const current = styles[type] || styles.info
+  return (
+    <div style={{
+      backgroundColor: current.bg,
+      borderLeft: `5px solid ${current.border}`,
+      color: current.color,
+      padding: '15px',
+      margin: '20px 0',
+      borderRadius: '4px'
+    }}>
+      {children}
+    </div>
+  )
+}
+
+# 🚀 개츠비 MDX 테스트
+
+이 글은 일반 마크다운 문법과 리액트(React) 코드를 결합한 **MDX** 문서입니다.
+
+<Highlight color="#86efac">리액트 컴포넌트가 정상 작동합니다!</Highlight>
+
+일반 텍스트와 리액트 요소를 한 줄에 섞어서 쓸 수 있는 것이 MDX의 가장 큰 매력입니다.
+
+<AlertBox type="success">
+  <h3>🎉 성공적인 연동 완료!</h3>
+  이제 에디터에서 대문자로 시작하는 컴포넌트 태그를 사용해 글을 쓰면 자동으로 <b>.mdx</b> 확장자로 깃허브에 게시되며, 개츠비 블로그에 연동되어 아름답게 렌더링됩니다.
+</AlertBox>
