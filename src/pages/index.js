@@ -24,10 +24,10 @@ const IndexPage = ({ data }) => {
       }}>
         <header style={{ marginBottom: "50px" }}>
           <h1 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#111827", margin: "0 0 10px 0" }}>
-            My Vinatong Blog 📝
+            비나통 | 커뮤니티 블로그 📝
           </h1>
           <p style={{ color: "#6b7280", fontSize: "16px", margin: 0 }}>
-            Gatsby와 React로 제작된 웹사이트입니다. 작성된 글 목록을 만나보세요.
+            베트남 업소 할인쿠폰 제공업소 정보 제공 블로그입니다. 유용한 정보와 꿀팁을 얻어가세요.
           </p>
         </header>
 
@@ -38,11 +38,11 @@ const IndexPage = ({ data }) => {
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {posts.map(post => {
                 const thumbnailProp = post.frontmatter.thumbnail || post.frontmatter.image
-                
+
                 return (
-                  <li key={post.id} style={{ 
-                    marginBottom: "35px", 
-                    paddingBottom: "30px", 
+                  <li key={post.id} style={{
+                    marginBottom: "35px",
+                    paddingBottom: "30px",
                     borderBottom: "1px solid #f3f4f6",
                     display: "flex",
                     flexDirection: "row",
@@ -61,13 +61,13 @@ const IndexPage = ({ data }) => {
                       position: "relative"
                     }} className="post-thumbnail-wrapper">
                       {thumbnailProp ? (
-                        <img 
-                          src={thumbnailProp} 
-                          alt={post.frontmatter.title} 
-                          style={{ 
-                            width: "100%", 
-                            height: "100%", 
-                            objectFit: "cover" 
+                        <img
+                          src={thumbnailProp}
+                          alt={post.frontmatter.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover"
                           }}
                         />
                       ) : (
@@ -89,17 +89,17 @@ const IndexPage = ({ data }) => {
                     <div style={{ flex: 1 }}>
                       <span style={{ fontSize: "13px", color: "#9ca3af" }}>{post.frontmatter.date}</span>
                       <h2 style={{ margin: "5px 0 10px 0", fontSize: "1.3rem" }}>
-                        <Link to={post.fields.slug} style={{ 
-                          color: "#2563eb", 
+                        <Link to={post.fields.slug} style={{
+                          color: "#2563eb",
                           textDecoration: "none",
                           fontWeight: "700"
                         }}>
                           {post.frontmatter.title}
                         </Link>
                       </h2>
-                      <p style={{ 
-                        color: "#4b5563", 
-                        fontSize: "14.5px", 
+                      <p style={{
+                        color: "#4b5563",
+                        fontSize: "14.5px",
                         margin: 0,
                         lineHeight: "1.6"
                       }}>

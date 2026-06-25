@@ -15,7 +15,7 @@ export default function ContactPage() {
           borderRadius: "8px",
           border: "1px solid #e5e7eb"
         }}>
-          <p style={{ margin: "5px 0" }}>📧 <b>이메일</b> : support@vinatong.store</p>
+          <p style={{ margin: "5px 0" }}>📧 <b>이메일</b> : <a href="mailto:support@coupong.online">support@coupong.online</a></p>
           <p style={{ margin: "5px 0" }}>🌐 <b>공식 홈페이지</b> : <a href="https://vinatong.store" target="_blank" rel="noreferrer" style={{ color: "#2563eb", textDecoration: "none" }}>vinatong.store</a></p>
         </div>
       </div>

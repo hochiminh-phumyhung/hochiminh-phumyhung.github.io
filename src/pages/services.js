@@ -10,13 +10,13 @@ export default function ServicesPage() {
           저희 비나통에서 제공하는 전문 서비스 라인업을 소개합니다.
         </p>
         <ul style={{ marginTop: "20px", paddingLeft: "20px", lineHeight: "2.0", color: "#374151" }}>
-          <li>🚀 베트남 시장 진출 및 비즈니스 컨설팅</li>
-          <li>💻 웹 애플리케이션 및 플랫폼 설계 & 개발</li>
-          <li>📈 디지털 마케팅 및 SEO 최적화 솔루션</li>
+          <li>🚀 베트남 업소정보 및 할인쿠폰 제공</li>
+          <li>💻 베트남 소상공인 온라인 홍보지원</li>
+          <li>📈 베트남 교민 커뮤니티 활성화</li>
         </ul>
       </div>
     </Layout>
   )
 }
 
-export const Head = () => <title>서비스 - VinaTong Blog</title>
+export const Head = () => <title>비나통 서비스 - VinaTong Blog</title>
