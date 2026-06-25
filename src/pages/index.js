@@ -37,7 +37,16 @@ const IndexPage = ({ data }) => {
           ) : (
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {posts.map(post => {
-                const thumbnailImage = getImage(post.frontmatter.thumbnail)
+                const thumbnailProp = post.frontmatter.thumbnail
+                const thumbnailImage = getImage(thumbnailProp)
+                
+                // 외부 URL 이미지인지 로컬 이미지 객체인지 판별합니다.
+                let externalImageUrl = null
+                if (thumbnailProp && typeof thumbnailProp === "string") {
+                  externalImageUrl = thumbnailProp
+                } else if (thumbnailProp && thumbnailProp.publicURL) {
+                  externalImageUrl = thumbnailProp.publicURL
+                }
 
                 return (
                   <li key={post.id} style={{ 
@@ -57,13 +66,18 @@ const IndexPage = ({ data }) => {
                       backgroundColor: "#f3f4f6",
                       borderRadius: "8px",
                       overflow: "hidden",
-                      border: "1px solid #e5e7eb"
+                      border: "1px solid #e5e7eb",
+                      position: "relative"
                     }} className="post-thumbnail-wrapper">
-                      {thumbnailImage ? (
-                        <GatsbyImage 
-                          image={thumbnailImage} 
+                      {thumbnailProp ? (
+                        <img 
+                          src={thumbnailProp} 
                           alt={post.frontmatter.title} 
-                          style={{ width: "100%", height: "100%" }}
+                          style={{ 
+                            width: "100%", 
+                            height: "100%", 
+                            objectFit: "cover" 
+                          }}
                         />
                       ) : (
                         <div style={{
@@ -138,11 +152,7 @@ export const query = graphql`
           date(formatString: "YYYY년 MM월 DD일")
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
-          thumbnail {
-            childImageSharp {
-              gatsbyImageData(width: 300, height: 200, layout: CONSTRAINED, placeholder: BLURRED)
-            }
-          }
+          thumbnail
         }
       }
     }
@@ -157,11 +167,7 @@ export const query = graphql`
           date(formatString: "YYYY년 MM월 DD일")
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
-          thumbnail {
-            childImageSharp {
-              gatsbyImageData(width: 300, height: 200, layout: CONSTRAINED, placeholder: BLURRED)
-            }
-          }
+          thumbnail
         }
       }
     }

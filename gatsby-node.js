@@ -11,7 +11,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       date: Date @dateformat
       description: String
-      thumbnail: File @fileByRelativePath
+      thumbnail: String
     }
     type Mdx implements Node {
       frontmatter: MdxFrontmatter
@@ -20,7 +20,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       date: Date @dateformat
       description: String
-      thumbnail: File @fileByRelativePath
+      thumbnail: String
     }
   `
   createTypes(typeDefs)
