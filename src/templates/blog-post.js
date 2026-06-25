@@ -2,7 +2,15 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 export default function BlogPost({ data }) {
-  const post = data.markdownRemark
+  const post = data?.markdownRemark
+  if (!post) {
+    return (
+      <div style={{ padding: "40px", textAlign: "center", fontFamily: "sans-serif" }}>
+        <h2>포스트를 찾을 수 없습니다.</h2>
+        <Link to="/" style={{ color: "#2563eb", textDecoration: "none" }}>홈으로 돌아가기</Link>
+      </div>
+    )
+  }
   return (
     <div style={{ 
       maxWidth: "800px", 

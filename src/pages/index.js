@@ -2,7 +2,7 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 
 const IndexPage = ({ data }) => {
-  const posts = data.allMarkdownRemark.nodes
+  const posts = data?.allMarkdownRemark?.nodes || []
 
   return (
     <main style={{
