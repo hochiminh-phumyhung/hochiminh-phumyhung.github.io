@@ -2,7 +2,14 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 
 const IndexPage = ({ data }) => {
-  const posts = data?.allMarkdownRemark?.nodes || []
+  // 마크다운 포스트와 MDX 포스트 목록을 합쳐서 정렬합니다.
+  const mdPosts = data?.allMarkdownRemark?.nodes || []
+  const mdxPosts = data?.allMdx?.nodes || []
+  const posts = [...mdPosts, ...mdxPosts].sort((a, b) => {
+    const dateA = a.frontmatter.rawDate || ""
+    const dateB = b.frontmatter.rawDate || ""
+    return dateB.localeCompare(dateA)
+  })
 
   return (
     <main style={{
@@ -60,7 +67,7 @@ const IndexPage = ({ data }) => {
 }
 
 export const query = graphql`
-  query {
+  query IndexPageQuery {
     allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         id
@@ -70,6 +77,21 @@ export const query = graphql`
         frontmatter {
           title
           date(formatString: "YYYY년 MM월 DD일")
+          rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
+          description
+        }
+      }
+    }
+    allMdx(sort: { frontmatter: { date: DESC } }) {
+      nodes {
+        id
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          date(formatString: "YYYY년 MM월 DD일")
+          rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
         }
       }
