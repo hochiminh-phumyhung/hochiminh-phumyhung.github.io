@@ -37,17 +37,8 @@ const IndexPage = ({ data }) => {
           ) : (
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {posts.map(post => {
-                const thumbnailProp = post.frontmatter.thumbnail
-                const thumbnailImage = getImage(thumbnailProp)
+                const thumbnailProp = post.frontmatter.thumbnail || post.frontmatter.image
                 
-                // 외부 URL 이미지인지 로컬 이미지 객체인지 판별합니다.
-                let externalImageUrl = null
-                if (thumbnailProp && typeof thumbnailProp === "string") {
-                  externalImageUrl = thumbnailProp
-                } else if (thumbnailProp && thumbnailProp.publicURL) {
-                  externalImageUrl = thumbnailProp.publicURL
-                }
-
                 return (
                   <li key={post.id} style={{ 
                     marginBottom: "35px", 
@@ -153,6 +144,7 @@ export const query = graphql`
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
           thumbnail
+          image
         }
       }
     }
@@ -168,6 +160,7 @@ export const query = graphql`
           rawDate: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
           description
           thumbnail
+          image
         }
       }
     }

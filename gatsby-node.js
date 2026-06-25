@@ -12,6 +12,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat
       description: String
       thumbnail: String
+      image: String
     }
     type Mdx implements Node {
       frontmatter: MdxFrontmatter
@@ -21,6 +22,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat
       description: String
       thumbnail: String
+      image: String
     }
   `
   createTypes(typeDefs)
@@ -30,7 +32,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   // 마크다운과 MDX 노드 모두에 slug 필드를 동적으로 부여합니다.
   if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` })
+    let slug = createFilePath({ node, getNode, basePath: `pages` })
+    
+    // URL에서 날짜 패턴 (예: /2026-06-25-제목 -> /제목)을 강제로 제거합니다.
+    slug = slug.replace(/^\/(\d{4}-\d{2}-\d{2}-)/, "/")
+    
     createNodeField({
       node,
       name: `slug`,
