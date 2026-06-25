@@ -20,10 +20,10 @@ export default function BlogPost({ data }) {
 
   return (
     <Layout>
-      <div style={{ 
-        maxWidth: "800px", 
-        margin: "40px auto", 
-        padding: "0 20px", 
+      <div style={{
+        maxWidth: "800px",
+        margin: "40px auto",
+        padding: "0 20px",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         lineHeight: "1.7",
         color: "#333"
@@ -31,9 +31,9 @@ export default function BlogPost({ data }) {
         {/* 상단 가로 배너 이미지 (반응형) */}
         <div style={{ marginBottom: "30px" }}>
           <a href="https://vinatong.store" target="_blank" rel="noreferrer" style={{ display: "block" }}>
-            <img 
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&h=300&q=80" 
-              alt="비나통 공식 스토어 배너" 
+            <img
+              src="https://cdn.sanity.io/images/8xyje6wz/production/fc266096da8a9463c123e111d93328021734f289-1980x956.jpg?h=300&fit=max&q=80"
+              alt="비나통 공식홈페이지"
               style={{
                 width: "100%",
                 height: "auto",
