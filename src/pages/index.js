@@ -42,7 +42,7 @@ const IndexPage = ({ data }) => {
             Vietnam Premium Coupon Platform
           </span>
           <h1 style={{
-            fontSize: "2.8rem",
+            fontSize: "2.2rem",
             fontWeight: "900",
             margin: "0 0 15px 0",
             letterSpacing: "-0.03em",
