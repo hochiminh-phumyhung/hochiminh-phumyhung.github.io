@@ -13,6 +13,11 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       thumbnail: String
       image: String
+      couponActive: Boolean
+      discountRate: String
+      expiryDate: String
+      couponCode: String
+      couponImage: String
     }
     type Mdx implements Node {
       frontmatter: MdxFrontmatter
@@ -23,6 +28,11 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       thumbnail: String
       image: String
+      couponActive: Boolean
+      discountRate: String
+      expiryDate: String
+      couponCode: String
+      couponImage: String
     }
   `
   createTypes(typeDefs)
