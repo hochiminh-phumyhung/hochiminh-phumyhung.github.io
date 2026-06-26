@@ -10,7 +10,7 @@ export default function Layout({ children }) {
 
   return (
     <div style={{
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif",
+      fontFamily: "'Paperlogy', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
       color: "#1f2937",
       minHeight: "100vh",
       display: "flex",
@@ -99,8 +99,47 @@ export default function Layout({ children }) {
         )}
       </nav>
 
-      {/* 모바일 미디어 쿼리 */}
+      {/* 모바일 미디어 쿼리 및 글로벌 폰트 스타일 */}
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;800;900&display=swap');
+        
+        @font-face {
+          font-family: 'Paperlogy';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: 'Paperlogy';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
+          font-weight: 500;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: 'Paperlogy';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+          font-weight: 700;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: 'Paperlogy';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+          font-weight: 800;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        body, html, p, div, h1, h2, h3, h4, h5, h6, a, span, li, ul, ol, input, textarea, button {
+          font-family: 'Paperlogy', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+          letter-spacing: -0.01em !important;
+        }
+
         .desktop-menu a:hover {
           color: #ef4444 !important;
         }

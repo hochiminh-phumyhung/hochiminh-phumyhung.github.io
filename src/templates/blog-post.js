@@ -49,7 +49,7 @@ export default function BlogPost({ data }) {
         maxWidth: "800px",
         margin: "40px auto",
         padding: "0 20px",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        fontFamily: "'Paperlogy', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         lineHeight: "1.7",
         color: "#333"
       }}>
