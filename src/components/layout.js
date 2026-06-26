@@ -37,20 +37,21 @@ export default function Layout({ children }) {
           alignItems: "center",
           height: "60px"
         }}>
-          {/* 로고 */}
+          {/* 로고 이미지 적용 */}
           <Link to="/" style={{
-            fontSize: "1.25rem",
-            fontWeight: "800",
-            background: "linear-gradient(90deg, #ef4444, #f97316)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            textDecoration: "none",
-            letterSpacing: "-0.03em",
             display: "flex",
             alignItems: "center",
-            gap: "4px"
+            textDecoration: "none"
           }}>
-            비나통 🎟️
+            <img 
+              src="/VinaTong_logo_black.png" 
+              alt="비나통 로고" 
+              style={{ 
+                height: "26px", 
+                width: "auto",
+                display: "block" 
+              }} 
+            />
           </Link>
 
           {/* 데스크톱 메뉴 */}
@@ -70,7 +71,7 @@ export default function Layout({ children }) {
               border: "none",
               cursor: "pointer",
               padding: "8px",
-              color: "#ef4444"
+              color: "#111827"
             }}
             className="mobile-menu-btn"
           >

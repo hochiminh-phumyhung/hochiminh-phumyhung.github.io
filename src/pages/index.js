@@ -13,7 +13,7 @@ const IndexPage = ({ data }) => {
     return dateB.localeCompare(dateA)
   })
 
-  // 카테고리 탭 상태 ("all", "barber", "massage", "news")
+  // 카테고리 탭 상태 ("all", "restaurant", "barber", "massage", "karaoke", "news")
   const [activeTab, setActiveTab] = useState("all")
 
   // 가맹점(쿠폰 제공)과 일반 뉴스 분리
@@ -23,13 +23,16 @@ const IndexPage = ({ data }) => {
   // 카테고리별 필터링
   const getFilteredShops = () => {
     if (activeTab === "all") return shopPosts
-    if (activeTab === "barber") {
-      return shopPosts.filter(post => post.frontmatter.title.includes("이발소"))
-    }
-    if (activeTab === "massage") {
-      return shopPosts.filter(post => post.frontmatter.title.includes("마사지") || post.frontmatter.title.includes("SPA") || post.frontmatter.title.includes("스파"))
-    }
-    return []
+    
+    // frontmatter.category 필드를 매칭
+    return shopPosts.filter(post => {
+      const cat = post.frontmatter.category || ""
+      if (activeTab === "restaurant") return cat === "맛집"
+      if (activeTab === "barber") return cat === "이발소"
+      if (activeTab === "massage") return cat === "마사지" || cat === "마사지·스파" || cat === "스파"
+      if (activeTab === "karaoke") return cat === "가라오케"
+      return false
+    })
   }
 
   const filteredShops = getFilteredShops()
@@ -39,7 +42,7 @@ const IndexPage = ({ data }) => {
       {/* 프리미엄 미니멀 히어로 */}
       <div style={{
         background: "radial-gradient(circle at 80% 20%, #fff5f5 0%, #ffffff 100%)",
-        padding: "50px 20px",
+        padding: "45px 20px",
         textAlign: "center",
         borderBottom: "1px solid #f3f4f6",
         position: "relative",
@@ -83,19 +86,23 @@ const IndexPage = ({ data }) => {
           }}>
             HO CHI MINH PREMIUM COUPON
           </span>
+          {/* 타이틀 모바일 반응형 한 줄 설정 */}
           <h1 style={{
-            fontSize: "2.1rem",
+            fontSize: "clamp(1.4rem, 5.2vw, 2.1rem)",
             fontWeight: "900",
             margin: "0 0 12px 0",
             letterSpacing: "-0.03em",
             color: "#111827",
-            lineHeight: "1.3"
+            lineHeight: "1.3",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
           }}>
-            베트남은 비나통으로 통한다 🎟️
+            베트남은 비나통으로 통한다
           </h1>
           <p style={{
             color: "#6b7280",
-            fontSize: "15px",
+            fontSize: "14px",
             margin: 0,
             fontWeight: "500",
             lineHeight: "1.6",
@@ -114,7 +121,7 @@ const IndexPage = ({ data }) => {
         padding: "30px 20px",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
       }}>
-        {/* 탭 카테고리 필터 (칩 스타일) */}
+        {/* 탭 카테고리 필터 (글자로만 이루어진 스와이프 가능한 칩) */}
         <div style={{
           display: "flex",
           gap: "10px",
@@ -122,72 +129,38 @@ const IndexPage = ({ data }) => {
           paddingBottom: "15px",
           marginBottom: "30px",
           scrollbarWidth: "none",
-          msOverflowStyle: "none"
+          msOverflowStyle: "none",
+          flexWrap: "nowrap",
+          WebkitOverflowScrolling: "touch"
         }} className="no-scrollbar">
-          <button
-            onClick={() => setActiveTab("all")}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "30px",
-              border: "none",
-              fontSize: "14px",
-              fontWeight: "700",
-              cursor: "pointer",
-              backgroundColor: activeTab === "all" ? "#111827" : "#f3f4f6",
-              color: activeTab === "all" ? "#ffffff" : "#4b5563",
-              transition: "all 0.2s"
-            }}
-          >
-            🔥 전체 혜택
-          </button>
-          <button
-            onClick={() => setActiveTab("barber")}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "30px",
-              border: "none",
-              fontSize: "14px",
-              fontWeight: "700",
-              cursor: "pointer",
-              backgroundColor: activeTab === "barber" ? "#111827" : "#f3f4f6",
-              color: activeTab === "barber" ? "#ffffff" : "#4b5563",
-              transition: "all 0.2s"
-            }}
-          >
-            💈 이발소
-          </button>
-          <button
-            onClick={() => setActiveTab("massage")}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "30px",
-              border: "none",
-              fontSize: "14px",
-              fontWeight: "700",
-              cursor: "pointer",
-              backgroundColor: activeTab === "massage" ? "#111827" : "#f3f4f6",
-              color: activeTab === "massage" ? "#ffffff" : "#4b5563",
-              transition: "all 0.2s"
-            }}
-          >
-            💆 마사지·스파
-          </button>
-          <button
-            onClick={() => setActiveTab("news")}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "30px",
-              border: "none",
-              fontSize: "14px",
-              fontWeight: "700",
-              cursor: "pointer",
-              backgroundColor: activeTab === "news" ? "#111827" : "#f3f4f6",
-              color: activeTab === "news" ? "#ffffff" : "#4b5563",
-              transition: "all 0.2s"
-            }}
-          >
-            📰 로컬 뉴스·꿀팁
-          </button>
+          {[
+            { id: "all", label: "전체" },
+            { id: "restaurant", label: "맛집" },
+            { id: "barber", label: "이발소" },
+            { id: "massage", label: "마사지" },
+            { id: "karaoke", label: "가라오케" },
+            { id: "news", label: "로컬 뉴스" }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                padding: "10px 20px",
+                borderRadius: "30px",
+                border: "none",
+                fontSize: "14px",
+                fontWeight: "700",
+                cursor: "pointer",
+                backgroundColor: activeTab === tab.id ? "#111827" : "#f3f4f6",
+                color: activeTab === tab.id ? "#ffffff" : "#4b5563",
+                transition: "all 0.2s",
+                flexShrink: 0,
+                whiteSpace: "nowrap"
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* 콘텐츠 렌더링 영역 */}
@@ -247,7 +220,8 @@ const IndexPage = ({ data }) => {
                         {post.frontmatter.discountRate || "10% 할인"}
                       </div>
 
-                      <div style={{ height: "130px", backgroundColor: "#f9fafb", overflow: "hidden", position: "relative" }}>
+                      {/* 썸네일 클릭 시 상세페이지 이동 */}
+                      <Link to={post.fields.slug} style={{ display: "block", height: "130px", backgroundColor: "#f9fafb", overflow: "hidden", position: "relative" }}>
                         {thumbnailProp ? (
                           <img
                             src={thumbnailProp}
@@ -267,7 +241,7 @@ const IndexPage = ({ data }) => {
                             No Image
                           </div>
                         )}
-                      </div>
+                      </Link>
 
                       <div style={{ padding: "18px", flex: 1, display: "flex", flexDirection: "column" }}>
                         <h3 style={{ margin: "0 0 6px 0", fontSize: "1.1rem", fontWeight: "800", lineHeight: "1.4" }}>
@@ -282,15 +256,19 @@ const IndexPage = ({ data }) => {
                         }}>
                           유효기간: ~{post.frontmatter.expiryDate || "2026-12-31"}
                         </p>
-                        <p style={{
-                          color: "#6b7280",
-                          fontSize: "13px",
-                          lineHeight: "1.5",
-                          margin: "0 0 16px 0",
-                          flex: 1
-                        }}>
-                          {post.frontmatter.description ? post.frontmatter.description.substring(0, 42) + "..." : "전용 특별 할인 혜택을 매장에서 즉시 적용받으세요."}
-                        </p>
+                        
+                        {/* 본문 요약 클릭 시 상세페이지 이동 */}
+                        <Link to={post.fields.slug} style={{ color: "inherit", textDecoration: "none", display: "flex", flex: 1, flexDirection: "column" }}>
+                          <p style={{
+                            color: "#6b7280",
+                            fontSize: "13px",
+                            lineHeight: "1.5",
+                            margin: "0 0 16px 0",
+                            flex: 1
+                          }}>
+                            {post.frontmatter.description ? post.frontmatter.description.substring(0, 42) + "..." : "전용 특별 할인 혜택을 매장에서 즉시 적용받으세요."}
+                          </p>
+                        </Link>
                         
                         <Link to={post.fields.slug} style={{
                           textAlign: "center",
@@ -307,7 +285,7 @@ const IndexPage = ({ data }) => {
                         }}
                         className="btn-coupon"
                         >
-                          쿠폰 사용하기 🎟️
+                          쿠폰 사용하기
                         </Link>
                       </div>
                     </div>
@@ -346,21 +324,23 @@ const IndexPage = ({ data }) => {
                       alignItems: "center"
                     }} className="news-item">
                       {thumbnailProp && (
-                        <div style={{
-                          width: "90px",
-                          height: "70px",
-                          flexShrink: 0,
-                          backgroundColor: "#f9fafb",
-                          borderRadius: "8px",
-                          overflow: "hidden",
-                          border: "1px solid #e5e7eb"
-                        }} className="news-thumbnail">
-                          <img
-                            src={thumbnailProp}
-                            alt={post.frontmatter.title}
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                          />
-                        </div>
+                        <Link to={post.fields.slug} style={{ display: "block" }}>
+                          <div style={{
+                            width: "90px",
+                            height: "70px",
+                            flexShrink: 0,
+                            backgroundColor: "#f9fafb",
+                            borderRadius: "8px",
+                            overflow: "hidden",
+                            border: "1px solid #e5e7eb"
+                          }} className="news-thumbnail">
+                            <img
+                              src={thumbnailProp}
+                              alt={post.frontmatter.title}
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                          </div>
+                        </Link>
                       )}
 
                       <div style={{ flex: 1 }}>
@@ -370,14 +350,16 @@ const IndexPage = ({ data }) => {
                             {post.frontmatter.title}
                           </Link>
                         </h3>
-                        <p style={{
-                          color: "#6b7280",
-                          fontSize: "13px",
-                          margin: 0,
-                          lineHeight: "1.5"
-                        }}>
-                          {post.frontmatter.description || "상세 보기 클릭..."}
-                        </p>
+                        <Link to={post.fields.slug} style={{ color: "inherit", textDecoration: "none" }}>
+                          <p style={{
+                            color: "#6b7280",
+                            fontSize: "13px",
+                            margin: 0,
+                            lineHeight: "1.5"
+                          }}>
+                            {post.frontmatter.description || "상세 보기 클릭..."}
+                          </p>
+                        </Link>
                       </div>
                     </div>
                   )
@@ -439,6 +421,7 @@ export const query = graphql`
           couponActive
           discountRate
           expiryDate
+          category
         }
       }
     }
@@ -458,6 +441,7 @@ export const query = graphql`
           couponActive
           discountRate
           expiryDate
+          category
         }
       }
     }

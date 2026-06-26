@@ -18,6 +18,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       expiryDate: String
       couponCode: String
       couponImage: String
+      category: String
     }
     type Mdx implements Node {
       frontmatter: MdxFrontmatter
@@ -33,6 +34,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       expiryDate: String
       couponCode: String
       couponImage: String
+      category: String
     }
   `
   createTypes(typeDefs)

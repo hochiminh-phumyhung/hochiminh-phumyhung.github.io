@@ -103,7 +103,7 @@ export default function BlogPost({ data }) {
                 fontWeight: "bold",
                 marginBottom: "10px"
               }}>
-                비나통 단독 할인 혜택 🎟️
+                비나통 단독 할인 혜택
               </span>
               <div style={{ fontSize: "28px", fontWeight: "800", color: "#b91c1c", marginBottom: "8px" }}>
                 {discountRate || "스페셜 할인 혜택"}
