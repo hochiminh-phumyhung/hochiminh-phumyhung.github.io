@@ -5,7 +5,7 @@ module.exports = {
   siteMetadata: {
     title: `비나통 | 할인쿠폰 가맹점 정보`,
     description: `베트남은 비나통으로 통한다! 베트남 호치민 푸미흥 업소의 할인쿠폰을 제공, 베트남 교민을 위한 할인혜택과 소상공인 업소 홍보를 위한 정보공유 커뮤니티 플랫폼`,
-    siteUrl: `https://hochiminh-phumyhung.github.io`
+    siteUrl: `https://coupon.vinatong.store`
   },
   plugins: [
     {
