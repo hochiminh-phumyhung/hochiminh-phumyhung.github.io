@@ -254,10 +254,10 @@ const IndexPage = ({ data }) => {
                           fontSize: "12px",
                           marginBottom: "12px"
                         }}>
-                          유효기간: ~{post.frontmatter.expiryDate || "2026-12-31"}
+                          쿠폰유효기간: ~{post.frontmatter.expiryDate || "2026-12-31"}
                         </p>
                         
-                        {/* 본문 요약 클릭 시 상세페이지 이동 */}
+                        {/* 본문 요약 클릭 시 상세페이지 이동 (요약 10자 추가하여 52글자 제한) */}
                         <Link to={post.fields.slug} style={{ color: "inherit", textDecoration: "none", display: "flex", flex: 1, flexDirection: "column" }}>
                           <p style={{
                             color: "#6b7280",
@@ -266,27 +266,49 @@ const IndexPage = ({ data }) => {
                             margin: "0 0 16px 0",
                             flex: 1
                           }}>
-                            {post.frontmatter.description ? post.frontmatter.description.substring(0, 42) + "..." : "전용 특별 할인 혜택을 매장에서 즉시 적용받으세요."}
+                            {post.frontmatter.description ? post.frontmatter.description.substring(0, 52) + "..." : "전용 특별 할인 혜택을 매장에서 즉시 적용받으세요."}
                           </p>
                         </Link>
                         
-                        <Link to={post.fields.slug} style={{
-                          textAlign: "center",
-                          background: "#f9fafb",
-                          color: "#111827",
-                          textDecoration: "none",
-                          fontWeight: "800",
-                          padding: "10px 0",
-                          borderRadius: "10px",
-                          fontSize: "13.5px",
-                          display: "block",
-                          border: "1px solid #e5e7eb",
-                          transition: "all 0.2s"
-                        }}
-                        className="btn-coupon"
-                        >
-                          쿠폰 사용하기
-                        </Link>
+                        {/* 버튼 2개로 분리 (상세보기 / 쿠폰 사용하기) */}
+                        <div style={{ display: "flex", gap: "8px" }}>
+                          <Link to={post.fields.slug} style={{
+                            flex: 1,
+                            textAlign: "center",
+                            background: "#111827",
+                            color: "#ffffff",
+                            textDecoration: "none",
+                            fontWeight: "800",
+                            padding: "10px 0",
+                            borderRadius: "10px",
+                            fontSize: "12px",
+                            display: "block",
+                            border: "1px solid #111827",
+                            transition: "all 0.2s"
+                          }}
+                          className="btn-detail"
+                          >
+                            상세보기
+                          </Link>
+                          <Link to={post.fields.slug} style={{
+                            flex: 1.3,
+                            textAlign: "center",
+                            background: "#f9fafb",
+                            color: "#111827",
+                            textDecoration: "none",
+                            fontWeight: "800",
+                            padding: "10px 0",
+                            borderRadius: "10px",
+                            fontSize: "12px",
+                            display: "block",
+                            border: "1px solid #e5e7eb",
+                            transition: "all 0.2s"
+                          }}
+                          className="btn-coupon"
+                          >
+                            쿠폰 사용하기
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   )

@@ -49,7 +49,7 @@ export default function BlogPost({ data }) {
         maxWidth: "800px",
         margin: "40px auto",
         padding: "0 20px",
-        fontFamily: "'Paperlogy', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         lineHeight: "1.7",
         color: "#333"
       }}>
@@ -183,33 +183,29 @@ export default function BlogPost({ data }) {
             position: "relative"
           }}>
             <h3 style={{ fontSize: "20px", fontWeight: "bold", margin: "0 0 10px 0", color: "#111" }}>
-              할인쿠폰을 사용하시겠습니까?
+              쿠퐁온라인(비나통)회원입니다!
             </h3>
-            <p style={{ fontSize: "14px", color: "#6b7280", margin: "0 0 20px 0" }}>
-              매장 직원에게 아래 쿠폰 코드를 보여주세요.
+            <p style={{ fontSize: "14px", color: "#6b7280", margin: "0 0 24px 0" }}>
+              매장 직원에게 아래 화면을 보여주세요.
             </p>
 
-            {/* 쿠폰 이미지 또는 텍스트 */}
-            {couponImage ? (
-              <img src={couponImage} alt="쿠폰 이미지" style={{ width: "100%", borderRadius: "8px", marginBottom: "20px" }} />
-            ) : (
-              <div style={{
-                background: "#f3f4f6",
-                padding: "20px",
-                borderRadius: "8px",
-                fontSize: "24px",
-                fontWeight: "800",
-                color: "#111",
-                letterSpacing: "2px",
-                border: "2px dashed #d1d5db",
-                marginBottom: "20px"
-              }}>
-                {couponCode || "VINATONG"}
-              </div>
-            )}
+            {/* 진한 빨간색 할인율 표시 (쿠폰코드 불필요) */}
+            <div style={{
+              color: "#b91c1c",
+              fontSize: "32px",
+              fontWeight: "900",
+              marginBottom: "6px"
+            }}>
+              {discountRate || "10% 즉시 할인"}
+            </div>
 
-            <div style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "24px" }}>
-              * 본 화면을 현장에서 제시하시면 {discountRate || "할인"} 혜택을 받으실 수 있습니다.
+            {/* 유효기간 표시 (작은 글씨) */}
+            <div style={{
+              fontSize: "13px",
+              color: "#9ca3af",
+              marginBottom: "28px"
+            }}>
+              유효기간: ~{expiryDate || "2026-12-31"}
             </div>
 
             <button
