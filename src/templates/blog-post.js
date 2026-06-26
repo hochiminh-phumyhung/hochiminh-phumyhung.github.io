@@ -1,9 +1,19 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
 export default function BlogPost({ data }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get("openCoupon") === "true") {
+        setIsModalOpen(true)
+      }
+    }
+  }, [])
+
   const post = data?.markdownRemark || data?.mdx
 
   if (!post) {

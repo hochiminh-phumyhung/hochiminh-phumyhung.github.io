@@ -290,18 +290,18 @@ const IndexPage = ({ data }) => {
                           >
                             상세보기
                           </Link>
-                          <Link to={post.fields.slug} style={{
+                          <Link to={`${post.fields.slug}?openCoupon=true`} style={{
                             flex: 1.3,
                             textAlign: "center",
-                            background: "#f9fafb",
-                            color: "#111827",
+                            background: "#ef4444",
+                            color: "#ffffff",
                             textDecoration: "none",
                             fontWeight: "800",
                             padding: "10px 0",
                             borderRadius: "10px",
                             fontSize: "12px",
                             display: "block",
-                            border: "1px solid #e5e7eb",
+                            border: "1px solid #ef4444",
                             transition: "all 0.2s"
                           }}
                           className="btn-coupon"
@@ -405,9 +405,9 @@ const IndexPage = ({ data }) => {
           transform: scale(1.08);
         }
         .shop-card:hover .btn-coupon {
-          background: #ef4444 !important;
+          background: #dc2626 !important;
           color: #ffffff !important;
-          border-color: #ef4444 !important;
+          border-color: #dc2626 !important;
         }
         @media (max-width: 640px) {
           .news-item {
