@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
-export default function BlogPost({ data }) {
+export default function BlogPost({ data, children }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function BlogPost({ data }) {
     }
   }, [])
 
-  const post = data?.markdownRemark || data?.mdx
+  const post = data?.mdx || data?.markdownRemark
 
   if (!post) {
     return (
@@ -156,13 +156,13 @@ export default function BlogPost({ data }) {
             }
           `}</style>
 
-          {/* 마크다운과 MDX 포스트 모두 지원하기 위해 children(MDX)이 있으면 렌더링하고, 없으면 htmlContent 사용 */}
+          {/* 마크다운과 MDX 포스트 모두 지원하기 위해 mdx 데이터가 있으면 children으로 렌더링하고, 없으면 htmlContent 사용 */}
           <section className="blog-post-content" style={{ fontSize: "16px", color: "#1f2937" }}>
-            {htmlContent ? (
+            {data?.mdx ? (
+              children
+            ) : htmlContent ? (
               <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-            ) : (
-              post.body
-            )}
+            ) : null}
           </section>
         </article>
       </div>
